@@ -15,9 +15,14 @@ class CountryProvider extends ChangeNotifier {
     isLoading = true;
     notifyListeners();
     countries = await APIService().getCountryList();
-    countries.sort((a,b)=>a.name!.official!.compareTo(b.name!.official!));
+    debugPrint(countries.length.toString());
+    countries.sort((a, b) => a.name!.common!.compareTo(b.name!.common!));
+    for (int i = 0; i < countries.length; i++) {
+      if (countries[i].name!.common!.startsWith('A')) {
+        debugPrint(countries[i].name!.common);
+      }
+    }
     isLoading = false;
     notifyListeners();
   }
-
 }
