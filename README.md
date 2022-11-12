@@ -1,16 +1,24 @@
-# explore
+# Explore: A Countries App
 
-A new Flutter project.
+A simple flutter application that displays the list of couintries and all the information about them
 
-## Getting Started
+## The Codebase
 
-This project is a starting point for a Flutter application.
+The code base takes a combination of clean and layered architecture format. With vertical slicing to separate the features (but essentially, there's only one feature here - the countries.) and the core that holds the supply that other files taps from. This include utils, theming and so on.
+The presentation in each feature have the views and widgets shared across the various views.
 
-A few resources to get you started if this is your first Flutter project:
+## State Management
+Provider was used to manage the state of the app where the states are not ephemeral.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## Features to be added if they were more time
+- Handling Errors.
+- Better Arrangment of widgets
+- Translating the app in other languages
+- Filtering result from dialog
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Appetize Link
+- https://appetize.io/app/hlx6cz7l6p5klc3soojtqbdc5i?device=pixel4xl&osVersion=12.0&scale=50
+
+## Github Repository
+- https://github.com/HassanTeslim007/Explore
+
