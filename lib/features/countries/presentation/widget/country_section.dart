@@ -25,7 +25,8 @@ class CountrySection extends StatelessWidget {
               itemCount: provider.countries.length,
               itemBuilder: (context, index) {
                 if (provider.countries[index].name!.common!
-                    .startsWith(letter)) {
+                        .startsWith(letter) &&
+                    provider.countries[index].name!.common! != 'Antarctica') {
                   return CountryTile(country: provider.countries[index]);
                 }
                 return const SizedBox();

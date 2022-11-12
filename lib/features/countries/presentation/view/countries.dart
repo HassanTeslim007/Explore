@@ -1,8 +1,8 @@
-import 'package:explore/core/theme/colors.dart';
 import 'package:explore/core/theme/custom_theme.dart';
 import 'package:explore/core/util/colors.dart';
 import 'package:explore/core/util/size_config.dart';
 import 'package:explore/features/countries/presentation/provider/country_provider.dart';
+import 'package:explore/features/countries/presentation/widget/bottomsheets/language_sheet.dart';
 import 'package:explore/features/countries/presentation/widget/country_section.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -81,23 +81,33 @@ class _CountriesState extends State<Countries> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 10),
-                      height: SizeConfig.fromHeight(context, 4.32),
-                      decoration: const BoxDecoration(
-                          color: Color.fromARGB(54, 169, 184, 212)),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const Icon(Icons.language),
-                          SizedBox(
-                            width: SizeConfig.fromHeight(context, 2),
-                          ),
-                          Text(
-                            'EN',
-                            style: Theme.of(context).textTheme.bodySmall,
-                          )
-                        ],
+                    InkWell(
+                      onTap: () {
+                        showModalBottomSheet(
+                            backgroundColor: Colors.transparent,
+                            context: context,
+                            builder: (context) {
+                              return const LanguageBottomSheet();
+                            });
+                      },
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 10),
+                        height: SizeConfig.fromHeight(context, 4.32),
+                        decoration: const BoxDecoration(
+                            color: Color.fromARGB(54, 169, 184, 212)),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const Icon(Icons.language),
+                            SizedBox(
+                              width: SizeConfig.fromHeight(context, 2),
+                            ),
+                            Text(
+                              'EN',
+                              style: Theme.of(context).textTheme.bodySmall,
+                            )
+                          ],
+                        ),
                       ),
                     ),
                     Container(
@@ -158,20 +168,3 @@ class _CountriesState extends State<Countries> {
     );
   }
 }
-
-Widget changeTheme() => Container(
-    decoration: BoxDecoration(
-        shape: BoxShape.circle,
-        border: Border.all(
-            color: CustomTheme().currentTheme == ThemeMode.dark
-                ? kWhite
-                : kBlack)),
-    child: IconButton(
-        onPressed: () => currentTheme.toggleTheme(),
-        icon: CustomTheme().currentTheme == ThemeMode.dark
-            ? const Icon(
-                Icons.light_mode_rounded,
-              )
-            : const Icon(
-                Icons.dark_mode_rounded,
-              )));
