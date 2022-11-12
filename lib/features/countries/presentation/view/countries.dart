@@ -1,12 +1,10 @@
 import 'package:explore/core/util/colors.dart';
 import 'package:explore/core/util/size_config.dart';
-import 'package:explore/features/countries/domain/models/country_model.dart';
 import 'package:explore/features/countries/presentation/provider/country_provider.dart';
 import 'package:explore/features/countries/presentation/widget/country_section.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../widget/country_file.dart';
 
 class Countries extends StatelessWidget {
   const Countries({super.key});

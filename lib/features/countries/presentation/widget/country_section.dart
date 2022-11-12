@@ -1,5 +1,5 @@
 import 'package:explore/features/countries/presentation/provider/country_provider.dart';
-import 'package:explore/features/countries/presentation/widget/country_file.dart';
+import 'package:explore/features/countries/presentation/widget/country_tile.dart';
 import 'package:flutter/material.dart';
 
 class CountrySection extends StatelessWidget {

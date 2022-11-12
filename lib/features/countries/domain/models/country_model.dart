@@ -1,34 +1,20 @@
-
-
 class Country {
   Name? name;
-  List<dynamic>? tld;
-  String? cca2;
-  String? ccn3;
-  String? cca3;
-  String? cioc;
   bool? independent;
-  String? status;
   bool? unMember;
-  Currencies? currencies;
-  Idd? idd;
+  Map<String, dynamic>? currencies;
   List<dynamic>? capital;
   List<String>? altSpellings;
   String? region;
   String? subregion;
-  Languages? languages;
-  Translations? translations;
+  Map<String, dynamic>? languages;
   List<double>? latlng;
-  bool? landlocked;
   double? area;
-  Demonyms? demonyms;
   String? flag;
   Maps? maps;
   int? population;
-  String? fifa;
   Car? car;
   List<String>? timezones;
-  List<String>? continents;
   Flags? flags;
   Flags? coatOfArms;
   String? startOfWeek;
@@ -37,33 +23,21 @@ class Country {
 
   Country(
       {this.name,
-      this.tld,
-      this.cca2,
-      this.ccn3,
-      this.cca3,
-      this.cioc,
       this.independent,
-      this.status,
       this.unMember,
       this.currencies,
-      this.idd,
       this.capital,
       this.altSpellings,
       this.region,
       this.subregion,
       this.languages,
-      this.translations,
       this.latlng,
-      this.landlocked,
       this.area,
-      this.demonyms,
       this.flag,
       this.maps,
       this.population,
-      this.fifa,
       this.car,
       this.timezones,
-      this.continents,
       this.flags,
       this.coatOfArms,
       this.startOfWeek,
@@ -72,40 +46,31 @@ class Country {
 
   Country.fromJson(Map<String, dynamic> json) {
     name = json['name'] != null ? Name.fromJson(json['name']) : null;
-    tld = json['tld'];
-    cca2 = json['cca2'];
-    ccn3 = json['ccn3'];
-    cca3 = json['cca3'];
-    cioc = json['cioc'];
+
     independent = json['independent'];
-    status = json['status'];
     unMember = json['unMember'];
-    currencies = json['currencies'] != null
-        ? Currencies.fromJson(json['currencies'])
-        : null;
-    idd = json['idd'] != null ? Idd.fromJson(json['idd']) : null;
+    if (json['currencies'] != null) {
+      currencies = json['currencies'];
+    } else {
+      currencies = null;
+    }
     capital = json['capital'];
     altSpellings = json['altSpellings'].cast<String>();
     region = json['region'];
     subregion = json['subregion'];
-    languages = json['languages'] != null
-        ? Languages.fromJson(json['languages'])
-        : null;
-    translations = json['translations'] != null
-        ? Translations.fromJson(json['translations'])
-        : null;
+    if (json['languages'] != null) {
+      languages = json['languages'];
+    } else {
+      languages = null;
+    }
+
     latlng = json['latlng'].cast<double>();
-    landlocked = json['landlocked'];
     area = json['area'];
-    demonyms =
-        json['demonyms'] != null ? Demonyms.fromJson(json['demonyms']) : null;
     flag = json['flag'];
     maps = json['maps'] != null ? Maps.fromJson(json['maps']) : null;
     population = json['population'];
-    fifa = json['fifa'];
     car = json['car'] != null ? Car.fromJson(json['car']) : null;
     timezones = json['timezones'].cast<String>();
-    continents = json['continents'].cast<String>();
     flags = json['flags'] != null ? Flags.fromJson(json['flags']) : null;
     coatOfArms =
         json['coatOfArms'] != null ? Flags.fromJson(json['coatOfArms']) : null;
@@ -123,47 +88,32 @@ class Country {
     if (name != null) {
       data['name'] = name!.toJson();
     }
-    data['tld'] = tld;
-    data['cca2'] = cca2;
-    data['ccn3'] = ccn3;
-    data['cca3'] = cca3;
-    data['cioc'] = cioc;
+
     data['independent'] = independent;
-    data['status'] = status;
     data['unMember'] = unMember;
     if (currencies != null) {
-      data['currencies'] = currencies!.toJson();
+      data['currencies'] = currencies!;
     }
-    if (idd != null) {
-      data['idd'] = idd!.toJson();
-    }
+
     data['capital'] = capital;
     data['altSpellings'] = altSpellings;
     data['region'] = region;
     data['subregion'] = subregion;
     if (languages != null) {
-      data['languages'] = languages!.toJson();
+      data['languages'] = languages!;
     }
-    if (translations != null) {
-      data['translations'] = translations!.toJson();
-    }
+
     data['latlng'] = latlng;
-    data['landlocked'] = landlocked;
     data['area'] = area;
-    if (demonyms != null) {
-      data['demonyms'] = demonyms!.toJson();
-    }
     data['flag'] = flag;
     if (maps != null) {
       data['maps'] = maps!.toJson();
     }
     data['population'] = population;
-    data['fifa'] = fifa;
     if (car != null) {
       data['car'] = car!.toJson();
     }
     data['timezones'] = timezones;
-    data['continents'] = continents;
     if (flags != null) {
       data['flags'] = flags!.toJson();
     }
@@ -296,179 +246,6 @@ class Idd {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['root'] = root;
     data['suffixes'] = suffixes;
-    return data;
-  }
-}
-
-class Languages {
-  String? eng;
-
-  Languages({this.eng});
-
-  Languages.fromJson(Map<String, dynamic> json) {
-    eng = json['eng'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['eng'] = eng;
-    return data;
-  }
-}
-
-class Translations {
-  Eng? ara;
-  Eng? bre;
-  Eng? ces;
-  Eng? cym;
-  Eng? deu;
-  Eng? est;
-  Eng? fin;
-  Eng? fra;
-  Eng? hrv;
-  Eng? hun;
-  Eng? ita;
-  Eng? jpn;
-  Eng? kor;
-  Eng? nld;
-  Eng? per;
-  Eng? pol;
-  Eng? por;
-  Eng? rus;
-  Eng? slk;
-  Eng? spa;
-  Eng? swe;
-  Eng? tur;
-  Eng? urd;
-  Eng? zho;
-
-  Translations(
-      {this.ara,
-      this.bre,
-      this.ces,
-      this.cym,
-      this.deu,
-      this.est,
-      this.fin,
-      this.fra,
-      this.hrv,
-      this.hun,
-      this.ita,
-      this.jpn,
-      this.kor,
-      this.nld,
-      this.per,
-      this.pol,
-      this.por,
-      this.rus,
-      this.slk,
-      this.spa,
-      this.swe,
-      this.tur,
-      this.urd,
-      this.zho});
-
-  Translations.fromJson(Map<String, dynamic> json) {
-    ara = json['ara'] != null ? Eng.fromJson(json['ara']) : null;
-    bre = json['bre'] != null ? Eng.fromJson(json['bre']) : null;
-    ces = json['ces'] != null ? Eng.fromJson(json['ces']) : null;
-    cym = json['cym'] != null ? Eng.fromJson(json['cym']) : null;
-    deu = json['deu'] != null ? Eng.fromJson(json['deu']) : null;
-    est = json['est'] != null ? Eng.fromJson(json['est']) : null;
-    fin = json['fin'] != null ? Eng.fromJson(json['fin']) : null;
-    fra = json['fra'] != null ? Eng.fromJson(json['fra']) : null;
-    hrv = json['hrv'] != null ? Eng.fromJson(json['hrv']) : null;
-    hun = json['hun'] != null ? Eng.fromJson(json['hun']) : null;
-    ita = json['ita'] != null ? Eng.fromJson(json['ita']) : null;
-    jpn = json['jpn'] != null ? Eng.fromJson(json['jpn']) : null;
-    kor = json['kor'] != null ? Eng.fromJson(json['kor']) : null;
-    nld = json['nld'] != null ? Eng.fromJson(json['nld']) : null;
-    per = json['per'] != null ? Eng.fromJson(json['per']) : null;
-    pol = json['pol'] != null ? Eng.fromJson(json['pol']) : null;
-    por = json['por'] != null ? Eng.fromJson(json['por']) : null;
-    rus = json['rus'] != null ? Eng.fromJson(json['rus']) : null;
-    slk = json['slk'] != null ? Eng.fromJson(json['slk']) : null;
-    spa = json['spa'] != null ? Eng.fromJson(json['spa']) : null;
-    swe = json['swe'] != null ? Eng.fromJson(json['swe']) : null;
-    tur = json['tur'] != null ? Eng.fromJson(json['tur']) : null;
-    urd = json['urd'] != null ? Eng.fromJson(json['urd']) : null;
-    zho = json['zho'] != null ? Eng.fromJson(json['zho']) : null;
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    if (ara != null) {
-      data['ara'] = ara!.toJson();
-    }
-    if (bre != null) {
-      data['bre'] = bre!.toJson();
-    }
-    if (ces != null) {
-      data['ces'] = ces!.toJson();
-    }
-    if (cym != null) {
-      data['cym'] = cym!.toJson();
-    }
-    if (deu != null) {
-      data['deu'] = deu!.toJson();
-    }
-    if (est != null) {
-      data['est'] = est!.toJson();
-    }
-    if (fin != null) {
-      data['fin'] = fin!.toJson();
-    }
-    if (fra != null) {
-      data['fra'] = fra!.toJson();
-    }
-    if (hrv != null) {
-      data['hrv'] = hrv!.toJson();
-    }
-    if (hun != null) {
-      data['hun'] = hun!.toJson();
-    }
-    if (ita != null) {
-      data['ita'] = ita!.toJson();
-    }
-    if (jpn != null) {
-      data['jpn'] = jpn!.toJson();
-    }
-    if (kor != null) {
-      data['kor'] = kor!.toJson();
-    }
-    if (nld != null) {
-      data['nld'] = nld!.toJson();
-    }
-    if (per != null) {
-      data['per'] = per!.toJson();
-    }
-    if (pol != null) {
-      data['pol'] = pol!.toJson();
-    }
-    if (por != null) {
-      data['por'] = por!.toJson();
-    }
-    if (rus != null) {
-      data['rus'] = rus!.toJson();
-    }
-    if (slk != null) {
-      data['slk'] = slk!.toJson();
-    }
-    if (spa != null) {
-      data['spa'] = spa!.toJson();
-    }
-    if (swe != null) {
-      data['swe'] = swe!.toJson();
-    }
-    if (tur != null) {
-      data['tur'] = tur!.toJson();
-    }
-    if (urd != null) {
-      data['urd'] = urd!.toJson();
-    }
-    if (zho != null) {
-      data['zho'] = zho!.toJson();
-    }
     return data;
   }
 }
