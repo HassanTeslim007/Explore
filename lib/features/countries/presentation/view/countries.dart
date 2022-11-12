@@ -1,3 +1,5 @@
+import 'package:explore/core/theme/colors.dart';
+import 'package:explore/core/theme/custom_theme.dart';
 import 'package:explore/core/util/colors.dart';
 import 'package:explore/core/util/size_config.dart';
 import 'package:explore/features/countries/presentation/provider/country_provider.dart';
@@ -5,10 +7,14 @@ import 'package:explore/features/countries/presentation/widget/country_section.d
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-
-class Countries extends StatelessWidget {
+class Countries extends StatefulWidget {
   const Countries({super.key});
 
+  @override
+  State<Countries> createState() => _CountriesState();
+}
+
+class _CountriesState extends State<Countries> {
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<CountryProvider>(context);
@@ -26,15 +32,24 @@ class Countries extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Image.asset(
-                      'assets/logo_light.png',
+                      CustomTheme().currentTheme == ThemeMode.dark
+                          ? 'assets/logo_dark.png'
+                          : 'assets/logo.png',
                       width: SizeConfig.fromWidth(context, 23),
                     ),
                     IconButton(
-                        onPressed: () {},
-                        icon: Icon(
-                          Icons.light_mode_outlined,
-                          size: SizeConfig.fontSize(context, 6),
-                        ))
+                        onPressed: () {
+                          setState(() {
+                            currentTheme.toggleTheme();
+                          });
+                        },
+                        icon: CustomTheme().currentTheme == ThemeMode.dark
+                            ? const Icon(
+                                Icons.dark_mode_rounded,
+                              )
+                            : const Icon(
+                                Icons.light_mode_rounded,
+                              ))
                   ],
                 ),
                 SizedBox(
@@ -45,6 +60,7 @@ class Countries extends StatelessWidget {
                   decoration: InputDecoration(
                     prefixIcon: const Icon(Icons.search),
                     hintText: 'Search Country',
+                    hintStyle: Theme.of(context).textTheme.bodySmall,
                     fillColor: inputFieldBackground,
                     filled: true,
                     enabledBorder: const OutlineInputBorder(
@@ -77,7 +93,10 @@ class Countries extends StatelessWidget {
                           SizedBox(
                             width: SizeConfig.fromHeight(context, 2),
                           ),
-                          const Text('EN')
+                          Text(
+                            'EN',
+                            style: Theme.of(context).textTheme.bodySmall,
+                          )
                         ],
                       ),
                     ),
@@ -93,7 +112,10 @@ class Countries extends StatelessWidget {
                           SizedBox(
                             width: SizeConfig.fromHeight(context, 1),
                           ),
-                          const Text('Filter')
+                          Text(
+                            'Filter',
+                            style: Theme.of(context).textTheme.bodySmall,
+                          )
                         ],
                       ),
                     )
@@ -136,3 +158,20 @@ class Countries extends StatelessWidget {
     );
   }
 }
+
+Widget changeTheme() => Container(
+    decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        border: Border.all(
+            color: CustomTheme().currentTheme == ThemeMode.dark
+                ? kWhite
+                : kBlack)),
+    child: IconButton(
+        onPressed: () => currentTheme.toggleTheme(),
+        icon: CustomTheme().currentTheme == ThemeMode.dark
+            ? const Icon(
+                Icons.light_mode_rounded,
+              )
+            : const Icon(
+                Icons.dark_mode_rounded,
+              )));

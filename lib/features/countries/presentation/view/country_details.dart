@@ -1,6 +1,8 @@
 // ignore_for_file: unnecessary_null_comparison
 
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:explore/core/theme/colors.dart';
+import 'package:explore/core/theme/custom_theme.dart';
 import 'package:explore/core/util/size_config.dart';
 import 'package:explore/features/countries/domain/models/country_model.dart';
 import 'package:flutter/material.dart';
@@ -17,10 +19,13 @@ class CountryDetails extends StatelessWidget {
         iconTheme: Theme.of(context).iconTheme,
         title: Text(
           country.name!.common.toString(),
-          style: Theme.of(context).textTheme.headline6,
+          style: Theme.of(context)
+              .textTheme
+              .bodySmall!
+              .copyWith(fontSize: SizeConfig.fontSize(context, 5)),
         ),
         centerTitle: true,
-        backgroundColor: Colors.white,
+        // backgroundColor: Colors.white,
         elevation: 0,
       ),
       body: country.coatOfArms == null
@@ -62,13 +67,41 @@ class CountryDetails extends StatelessWidget {
                               top: SizeConfig.fromHeight(context, 8)),
                           child: Row(
                             children: [
-                              IconButton(
-                                  onPressed: controller.previousPage,
-                                  icon: const Icon(Icons.arrow_back_ios)),
+                              Container(
+                                width: SizeConfig.fromWidth(context, 8),
+                                decoration: BoxDecoration(
+                                    color: const Color.fromARGB(65, 55, 52, 52),
+                                    shape: BoxShape.circle,
+                                    border: Border.all(
+                                        color: CustomTheme().currentTheme ==
+                                                ThemeMode.dark
+                                            ? kWhite
+                                            : kBlack)),
+                                child: IconButton(
+                                    onPressed: controller.previousPage,
+                                    icon: Icon(
+                                      Icons.arrow_back_ios,
+                                      size: SizeConfig.fontSize(context, 4),
+                                    )),
+                              ),
                               const Spacer(),
-                              IconButton(
-                                  onPressed: controller.nextPage,
-                                  icon: const Icon(Icons.arrow_forward_ios))
+                              Container(
+                                width: SizeConfig.fromWidth(context, 8),
+                                decoration: BoxDecoration(
+                                    color: const Color.fromARGB(65, 55, 52, 52),
+                                    shape: BoxShape.circle,
+                                    border: Border.all(
+                                        color: CustomTheme().currentTheme ==
+                                                ThemeMode.dark
+                                            ? kWhite
+                                            : kBlack)),
+                                child: IconButton(
+                                    onPressed: controller.nextPage,
+                                    icon: Icon(
+                                      Icons.arrow_forward_ios,
+                                      size: SizeConfig.fontSize(context, 4),
+                                    )),
+                              )
                             ],
                           ),
                         ),
@@ -135,14 +168,18 @@ Widget detailRow(context, title, detail) {
       children: [
         Text(
           title + ':',
-          style: TextStyle(
+          style: Theme.of(context).textTheme.bodySmall!.copyWith(
               fontWeight: FontWeight.bold,
               fontSize: SizeConfig.fontSize(context, 4)),
         ),
         SizedBox(
           width: SizeConfig.fromWidth(context, 5),
         ),
-        Expanded(child: Text(detail.toString()))
+        Expanded(
+            child: Text(
+          detail.toString(),
+          style: Theme.of(context).textTheme.bodySmall,
+        ))
       ],
     ),
   );

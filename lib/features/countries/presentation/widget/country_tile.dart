@@ -35,10 +35,11 @@ class CountryTile extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  country.name!.common!,
-                  style: const TextStyle(fontWeight: FontWeight.bold),
-                ),
+                Text(country.name!.common!,
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodySmall!
+                        .copyWith(fontWeight: FontWeight.bold)),
                 SizedBox(
                   height: SizeConfig.fromHeight(context, 0.5),
                 ),
@@ -46,7 +47,7 @@ class CountryTile extends StatelessWidget {
                     ? Text(
                         country.capital.toString().substring(
                             1, (country.capital.toString().length - 1)),
-                      )
+                        style: Theme.of(context).textTheme.bodySmall)
                     : const SizedBox()
               ],
             ),

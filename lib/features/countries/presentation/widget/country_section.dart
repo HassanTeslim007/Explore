@@ -13,7 +13,10 @@ class CountrySection extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(letter),
+        Text(
+          letter,
+          style: Theme.of(context).textTheme.bodySmall,
+        ),
         Expanded(
           flex: 0,
           child: ListView.builder(
@@ -21,7 +24,8 @@ class CountrySection extends StatelessWidget {
               shrinkWrap: true,
               itemCount: provider.countries.length,
               itemBuilder: (context, index) {
-                if (provider.countries[index].name!.common!.startsWith(letter)) {
+                if (provider.countries[index].name!.common!
+                    .startsWith(letter)) {
                   return CountryTile(country: provider.countries[index]);
                 }
                 return const SizedBox();
