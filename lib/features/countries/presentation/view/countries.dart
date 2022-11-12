@@ -2,6 +2,7 @@ import 'package:explore/core/theme/custom_theme.dart';
 import 'package:explore/core/util/colors.dart';
 import 'package:explore/core/util/size_config.dart';
 import 'package:explore/features/countries/presentation/provider/country_provider.dart';
+import 'package:explore/features/countries/presentation/widget/bottomsheets/filter_sheet.dart';
 import 'package:explore/features/countries/presentation/widget/bottomsheets/language_sheet.dart';
 import 'package:explore/features/countries/presentation/widget/country_section.dart';
 import 'package:flutter/material.dart';
@@ -56,12 +57,21 @@ class _CountriesState extends State<Countries> {
                   height: SizeConfig.fromHeight(context, 2.16),
                 ),
                 TextField(
+                  onChanged: (letters) => provider.filterItems(letters),
                   textAlign: TextAlign.center,
+                  style: Theme.of(context).textTheme.bodySmall,
                   decoration: InputDecoration(
-                    prefixIcon: const Icon(Icons.search),
+                    prefixIcon: Icon(
+                      Icons.search,
+                      color: CustomTheme().currentTheme == ThemeMode.dark
+                          ? inputFieldBackground
+                          : kBlack,
+                    ),
                     hintText: 'Search Country',
                     hintStyle: Theme.of(context).textTheme.bodySmall,
-                    fillColor: inputFieldBackground,
+                    fillColor: CustomTheme().currentTheme == ThemeMode.dark
+                        ? const Color.fromRGBO(152, 162, 179, 0.2)
+                        : inputFieldBackground,
                     filled: true,
                     enabledBorder: const OutlineInputBorder(
                       borderSide: BorderSide(
@@ -84,7 +94,11 @@ class _CountriesState extends State<Countries> {
                     InkWell(
                       onTap: () {
                         showModalBottomSheet(
-                            backgroundColor: Colors.transparent,
+                            shape: const RoundedRectangleBorder(
+                                borderRadius: BorderRadius.only(
+                              topRight: Radius.circular(30),
+                              topLeft: Radius.circular(30),
+                            )),
                             context: context,
                             builder: (context) {
                               return const LanguageBottomSheet();
@@ -110,23 +124,38 @@ class _CountriesState extends State<Countries> {
                         ),
                       ),
                     ),
-                    Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 10),
-                      height: SizeConfig.fromHeight(context, 4.32),
-                      decoration: const BoxDecoration(
-                          color: Color.fromARGB(54, 169, 184, 212)),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const Icon(Icons.filter_alt_outlined),
-                          SizedBox(
-                            width: SizeConfig.fromHeight(context, 1),
-                          ),
-                          Text(
-                            'Filter',
-                            style: Theme.of(context).textTheme.bodySmall,
-                          )
-                        ],
+                    InkWell(
+                      onTap: () {
+                        showModalBottomSheet(
+                            // backgroundColor: Colors.transparent,
+                            shape: const RoundedRectangleBorder(
+                                borderRadius: BorderRadius.only(
+                              topRight: Radius.circular(30),
+                              topLeft: Radius.circular(30),
+                            )),
+                            context: context,
+                            builder: (context) {
+                              return const FilterBottomSheet();
+                            });
+                      },
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 10),
+                        height: SizeConfig.fromHeight(context, 4.32),
+                        decoration: const BoxDecoration(
+                            color: Color.fromARGB(54, 169, 184, 212)),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const Icon(Icons.filter_alt_outlined),
+                            SizedBox(
+                              width: SizeConfig.fromHeight(context, 1),
+                            ),
+                            Text(
+                              'Filter',
+                              style: Theme.of(context).textTheme.bodySmall,
+                            )
+                          ],
+                        ),
                       ),
                     )
                   ],

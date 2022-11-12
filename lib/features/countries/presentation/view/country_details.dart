@@ -1,8 +1,8 @@
 // ignore_for_file: unnecessary_null_comparison
 
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:explore/core/theme/colors.dart';
 import 'package:explore/core/theme/custom_theme.dart';
+import 'package:explore/core/util/colors.dart';
 import 'package:explore/core/util/size_config.dart';
 import 'package:explore/features/countries/domain/models/country_model.dart';
 import 'package:flutter/material.dart';

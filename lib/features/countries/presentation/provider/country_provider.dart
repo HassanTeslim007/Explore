@@ -6,6 +6,10 @@ class CountryProvider extends ChangeNotifier {
   bool isLoading = false;
   List<Country> countries = [];
 
+  List<Country> foundList = [];
+
+  List<Country> searchedCountriesList = [];
+
   CountryProvider() {
     fetchCountries();
   }
@@ -17,12 +21,24 @@ class CountryProvider extends ChangeNotifier {
     countries = await APIService().getCountryList();
     debugPrint(countries.length.toString());
     countries.sort((a, b) => a.name!.common!.compareTo(b.name!.common!));
-    for (int i = 0; i < countries.length; i++) {
-      if (countries[i].name!.common!.startsWith('A')) {
-        debugPrint(countries[i].name!.common);
-      }
-    }
+    foundList = countries;
     isLoading = false;
+    notifyListeners();
+  }
+
+  void filterItems(String letters) {
+    if (letters.isEmpty) {
+      searchedCountriesList = countries;
+    } else {
+      searchedCountriesList = countries
+          .where(
+            (element) => element.name!.common!
+                .toLowerCase()
+                .contains(letters.toLowerCase()),
+          )
+          .toList();
+    }
+    foundList = searchedCountriesList;
     notifyListeners();
   }
 }

@@ -22,12 +22,12 @@ class CountrySection extends StatelessWidget {
           child: ListView.builder(
               physics: const NeverScrollableScrollPhysics(),
               shrinkWrap: true,
-              itemCount: provider.countries.length,
+              itemCount: provider.foundList.length,
               itemBuilder: (context, index) {
-                if (provider.countries[index].name!.common!
+                if (provider.foundList[index].name!.common!
                         .startsWith(letter) &&
-                    provider.countries[index].name!.common! != 'Antarctica') {
-                  return CountryTile(country: provider.countries[index]);
+                    provider.foundList[index].name!.common! != 'Antarctica') {
+                  return CountryTile(country: provider.foundList[index]);
                 }
                 return const SizedBox();
               }),
