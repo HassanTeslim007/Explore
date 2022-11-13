@@ -28,136 +28,136 @@ class CountryDetails extends StatelessWidget {
         // backgroundColor: Colors.white,
         elevation: 0,
       ),
-      body: country.coatOfArms == null
-          ? const Center(
-              child: Text('Unable to fetch Details'),
-            )
-          : Padding(
-              padding: EdgeInsets.symmetric(
-                horizontal: SizeConfig.fromWidth(context, 5.6),
-                vertical: SizeConfig.fromHeight(context, 2.8),
-              ),
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    Stack(
+      body: Padding(
+        padding: EdgeInsets.symmetric(
+          horizontal: SizeConfig.fromWidth(context, 5.6),
+          vertical: SizeConfig.fromHeight(context, 2.8),
+        ),
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              Stack(
+                children: [
+                  CarouselSlider(
+                    carouselController: controller,
+                    items: [
+                      Image.network(
+                        country.flags!.png.toString(),
+                        fit: BoxFit.cover,
+                      ),
+                      Image.network(
+                        country.coatOfArms!.png.toString(),
+                        errorBuilder: (context, error, stackTrace) {
+                          return const Center(
+                            child: Text('Cannot Fetch Coat of Arms Image'),
+                          );
+                        },
+                      ),
+                    ],
+                    options: CarouselOptions(
+                        initialPage: 0,
+                        enableInfiniteScroll: true,
+                        padEnds: false,
+                        height: SizeConfig.fromHeight(context, 21.6),
+                        viewportFraction: 1),
+                  ),
+                  Container(
+                    margin:
+                        EdgeInsets.only(top: SizeConfig.fromHeight(context, 8)),
+                    child: Row(
                       children: [
-                        CarouselSlider(
-                          carouselController: controller,
-                          items: [
-                            Image.network(
-                              country.flags!.png.toString(),
-                              fit: BoxFit.cover,
-                            ),
-                            country.coatOfArms == null
-                                ? const SizedBox()
-                                : Image.network(
-                                    country.coatOfArms!.png.toString()),
-                            // Image.network(country.flags!.png!)
-                          ],
-                          options: CarouselOptions(
-                              initialPage: 0,
-                              enableInfiniteScroll: true,
-                              padEnds: false,
-                              height: SizeConfig.fromHeight(context, 21.6),
-                              viewportFraction: 1),
-                        ),
                         Container(
-                          margin: EdgeInsets.only(
-                              top: SizeConfig.fromHeight(context, 8)),
-                          child: Row(
-                            children: [
-                              Container(
-                                width: SizeConfig.fromWidth(context, 8),
-                                decoration: BoxDecoration(
-                                    color: const Color.fromARGB(65, 55, 52, 52),
-                                    shape: BoxShape.circle,
-                                    border: Border.all(
-                                        color: CustomTheme().currentTheme ==
-                                                ThemeMode.dark
-                                            ? kWhite
-                                            : kBlack)),
-                                child: IconButton(
-                                    onPressed: controller.previousPage,
-                                    icon: Icon(
-                                      Icons.arrow_back_ios,
-                                      size: SizeConfig.fontSize(context, 4),
-                                    )),
-                              ),
-                              const Spacer(),
-                              Container(
-                                width: SizeConfig.fromWidth(context, 8),
-                                decoration: BoxDecoration(
-                                    color: const Color.fromARGB(65, 55, 52, 52),
-                                    shape: BoxShape.circle,
-                                    border: Border.all(
-                                        color: CustomTheme().currentTheme ==
-                                                ThemeMode.dark
-                                            ? kWhite
-                                            : kBlack)),
-                                child: IconButton(
-                                    onPressed: controller.nextPage,
-                                    icon: Icon(
-                                      Icons.arrow_forward_ios,
-                                      size: SizeConfig.fontSize(context, 4),
-                                    )),
-                              )
-                            ],
-                          ),
+                          width: SizeConfig.fromWidth(context, 8),
+                          decoration: BoxDecoration(
+                              color: const Color.fromARGB(65, 55, 52, 52),
+                              shape: BoxShape.circle,
+                              border: Border.all(
+                                  color: CustomTheme().currentTheme ==
+                                          ThemeMode.dark
+                                      ? kWhite
+                                      : kBlack)),
+                          child: IconButton(
+                              onPressed: controller.previousPage,
+                              icon: Icon(
+                                Icons.arrow_back_ios,
+                                size: SizeConfig.fontSize(context, 4),
+                              )),
                         ),
+                        const Spacer(),
+                        Container(
+                          width: SizeConfig.fromWidth(context, 8),
+                          decoration: BoxDecoration(
+                              color: const Color.fromARGB(65, 55, 52, 52),
+                              shape: BoxShape.circle,
+                              border: Border.all(
+                                  color: CustomTheme().currentTheme ==
+                                          ThemeMode.dark
+                                      ? kWhite
+                                      : kBlack)),
+                          child: IconButton(
+                              onPressed: controller.nextPage,
+                              icon: Icon(
+                                Icons.arrow_forward_ios,
+                                size: SizeConfig.fontSize(context, 4),
+                              )),
+                        )
                       ],
                     ),
-                    const SizedBox(
-                      height: 7,
-                    ),
-                    detailRow(context, 'Official Name', country.name!.official),
-                    detailRow(context, 'Official Language',
-                        country.languages!.values.first),
-                    detailRow(
-                        context,
-                        'Capital',
-                        country.capital == null
-                            ? const SizedBox()
-                            : country.capital!.toString().substring(
-                                1, country.capital!.toString().length - 1)),
-                    detailRow(context, 'Continent', country.continents!.first),
-                    detailRow(context, 'Region', country.region),
-                    detailRow(
-                      context,
-                      'Sub Region',
-                      country.subregion,
-                    ),
-                    detailRow(
-                      context,
-                      'UN Member',
-                      country.unMember == true ? 'Yes' : 'No',
-                    ),
-                    SizedBox(
-                      height: SizeConfig.fromHeight(context, 3),
-                    ),
-                    detailRow(context, 'Population', country.population),
-                    detailRow(context, 'Area', '${country.area} km2'),
-                    detailRow(context, 'Currency',
-                        country.currencies!.values.first['name']),
-                    detailRow(
-                        context,
-                        'Time zone',
-                        country.timezones.toString().substring(
-                            1, country.timezones.toString().length - 1)),
-                    SizedBox(
-                      height: SizeConfig.fromHeight(context, 3),
-                    ),
-                    detailRow(
-                        context,
-                        'Driving Side',
-                        country.car!.side!.replaceFirst(country.car!.side![0],
-                            country.car!.side![0].toUpperCase())),
-                    detailRow(context, 'Latitude', country.latlng![0]),
-                    detailRow(context, 'Longitude', country.latlng![1])
-                  ],
-                ),
+                  ),
+                ],
               ),
-            ),
+              const SizedBox(
+                height: 7,
+              ),
+              detailRow(context, 'Official Name', country.name!.official),
+              detailRow(context, 'Official Language',
+                  country.languages!.values.first),
+              detailRow(
+                  context,
+                  'Capital',
+                  country.capital == null
+                      ? const SizedBox()
+                      : country.capital!.toString().substring(
+                          1, country.capital!.toString().length - 1)),
+              detailRow(context, 'Continent', country.continents!.first),
+              detailRow(context, 'Region', country.region),
+              detailRow(
+                context,
+                'Sub Region',
+                country.subregion,
+              ),
+              detailRow(
+                context,
+                'UN Member',
+                country.unMember == true ? 'Yes' : 'No',
+              ),
+              SizedBox(
+                height: SizeConfig.fromHeight(context, 3),
+              ),
+              detailRow(context, 'Population', country.population),
+              detailRow(context, 'Area', '${country.area} km2'),
+              detailRow(context, 'Currency',
+                  country.currencies!.values.first['name']),
+              detailRow(
+                  context,
+                  'Time zone',
+                  country.timezones
+                      .toString()
+                      .substring(1, country.timezones.toString().length - 1)),
+              SizedBox(
+                height: SizeConfig.fromHeight(context, 3),
+              ),
+              detailRow(
+                  context,
+                  'Driving Side',
+                  country.car!.side!.replaceFirst(country.car!.side![0],
+                      country.car!.side![0].toUpperCase())),
+              detailRow(context, 'Latitude', country.latlng![0]),
+              detailRow(context, 'Longitude', country.latlng![1])
+            ],
+          ),
+        ),
+      ),
     );
   }
 }
