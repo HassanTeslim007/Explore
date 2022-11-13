@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:explore/core/theme/custom_theme.dart';
 import 'package:explore/core/util/colors.dart';
 import 'package:explore/core/util/size_config.dart';
@@ -5,7 +8,9 @@ import 'package:explore/features/countries/presentation/provider/country_provide
 import 'package:explore/features/countries/presentation/widget/bottomsheets/filter_sheet.dart';
 import 'package:explore/features/countries/presentation/widget/bottomsheets/language_sheet.dart';
 import 'package:explore/features/countries/presentation/widget/country_section.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:provider/provider.dart';
 
 class Countries extends StatefulWidget {
@@ -16,6 +21,32 @@ class Countries extends StatefulWidget {
 }
 
 class _CountriesState extends State<Countries> {
+  late StreamSubscription subscription;
+  bool isDeviceConnected = false;
+  bool? isAlertSet = false;
+  void getConnectivity(BuildContext context) {
+    subscription = Connectivity().onConnectivityChanged.listen((event) async {
+      isDeviceConnected = await InternetConnectionChecker().hasConnection;
+      if (!isDeviceConnected && isAlertSet == false) {
+        debugPrint('No internet');
+        showDialgBox();
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    subscription.cancel();
+    super.dispose();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getConnectivity(context);
+   
+  }
+
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<CountryProvider>(context);
@@ -196,4 +227,40 @@ class _CountriesState extends State<Countries> {
       ),
     );
   }
+
+  showDialgBox() => showCupertinoDialog<String>(
+      context: context,
+      builder: (context) {
+        return CupertinoAlertDialog(
+          title: const Text('No Internet Found'),
+          content: const Text('Please Check your Internet Connection'),
+          actions: [
+            ElevatedButton(
+                style: ButtonStyle(
+                    backgroundColor:
+                        CustomTheme().currentTheme == ThemeMode.dark
+                            ? MaterialStateProperty.all(kBlack)
+                            : MaterialStateProperty.all(kWhite)),
+                onPressed: () async {
+                  Navigator.pop(context, 'cancel');
+                   CountryProvider().fetchCountries();
+                  setState(() {
+                    isAlertSet = false;
+                   
+                  });
+                  isDeviceConnected = await InternetConnectionChecker().hasConnection;
+                  if(!isDeviceConnected){
+                    showDialgBox();
+                    setState(() {
+                      isAlertSet = true;
+                    });
+                  }
+                },
+                child: Text(
+                  'Continue',
+                  style: Theme.of(context).textTheme.bodySmall,
+                ))
+          ],
+        );
+      });
 }

@@ -120,6 +120,7 @@ class CountryDetails extends StatelessWidget {
                             ? const SizedBox()
                             : country.capital!.toString().substring(
                                 1, country.capital!.toString().length - 1)),
+                    detailRow(context, 'Continent', country.continents!.first),
                     detailRow(context, 'Region', country.region),
                     detailRow(
                       context,

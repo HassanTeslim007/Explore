@@ -1,11 +1,12 @@
 import 'package:explore/core/util/colors.dart';
+import 'package:explore/features/countries/presentation/provider/country_provider.dart';
 import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
 class FilterCheckBoxTile extends StatefulWidget {
   final String title;
-   bool? checkValue = false;
- FilterCheckBoxTile({super.key, required this.title});
+  bool? checkValue = false;
+  FilterCheckBoxTile({super.key, required this.title});
 
   @override
   State<FilterCheckBoxTile> createState() => _FilterCheckBoxTileState();
@@ -29,6 +30,7 @@ class _FilterCheckBoxTileState extends State<FilterCheckBoxTile> {
               onChanged: (newValue) {
                 setState(() {
                   widget.checkValue = newValue;
+                  CountryProvider().filterByContinent([widget.title]);
                 });
               },
             ),

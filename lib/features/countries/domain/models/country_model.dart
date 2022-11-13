@@ -14,6 +14,7 @@ class Country {
   Maps? maps;
   int? population;
   Car? car;
+  List<String>? continents;
   List<String>? timezones;
   Flags? flags;
   Flags? coatOfArms;
@@ -37,6 +38,7 @@ class Country {
       this.maps,
       this.population,
       this.car,
+      this.continents,
       this.timezones,
       this.flags,
       this.coatOfArms,
@@ -70,6 +72,7 @@ class Country {
     maps = json['maps'] != null ? Maps.fromJson(json['maps']) : null;
     population = json['population'];
     car = json['car'] != null ? Car.fromJson(json['car']) : null;
+    continents = json['continents'].cast<String>();
     timezones = json['timezones'].cast<String>();
     flags = json['flags'] != null ? Flags.fromJson(json['flags']) : null;
     coatOfArms =
@@ -113,6 +116,7 @@ class Country {
     if (car != null) {
       data['car'] = car!.toJson();
     }
+    data['continents'] = continents;
     data['timezones'] = timezones;
     if (flags != null) {
       data['flags'] = flags!.toJson();

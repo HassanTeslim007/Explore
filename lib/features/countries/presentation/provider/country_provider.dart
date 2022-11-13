@@ -19,7 +19,6 @@ class CountryProvider extends ChangeNotifier {
     isLoading = true;
     notifyListeners();
     countries = await APIService().getCountryList();
-    debugPrint(countries.length.toString());
     countries.sort((a, b) => a.name!.common!.compareTo(b.name!.common!));
     foundList = countries;
     isLoading = false;
@@ -40,5 +39,13 @@ class CountryProvider extends ChangeNotifier {
     }
     foundList = searchedCountriesList;
     notifyListeners();
+  }
+
+  void filterByContinent(List<String>? continents){
+    searchedCountriesList.where((element) => element.continents!.contains(continents)).toList();
+    foundList = searchedCountriesList;
+    notifyListeners();
+    print(foundList);
+
   }
 }
