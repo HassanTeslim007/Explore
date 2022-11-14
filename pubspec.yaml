@@ -16,9 +16,7 @@ dependencies:
   dio: ^4.0.6
   flutter:
     sdk: flutter
-  flutter_animated_dialog: ^2.0.1
   google_fonts: ^3.0.1
-  http: ^0.13.5
   internet_connection_checker: ^1.0.0+1
   provider: ^6.0.4
 
@@ -27,13 +25,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
-# For information on the generic Dart part of this file, see the
-# following page: https://dart.dev/tools/pub/pubspec
-# The following section is specific to Flutter packages.
 flutter:
-  # The following line ensures that the Material Icons font is
-  # included with your application, so that you can use the icons in
-  # the material Icons class.
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
