@@ -10,6 +10,9 @@ The presentation in each feature have the views and widgets shared across the va
 ## State Management
 Provider was used to manage the state of the app where the states are not ephemeral.
 
+## Packages
+
+
 ## Features to be added if they were more time
 - Handling Errors.
 - Better Arrangment of widgets
